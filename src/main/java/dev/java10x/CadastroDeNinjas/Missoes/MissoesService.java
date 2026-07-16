@@ -29,6 +29,4 @@ public class MissoesService {
         missoesRepository.deleteById(id);
     }
 
-    public void atualizarMissao(){
-    }
 }
