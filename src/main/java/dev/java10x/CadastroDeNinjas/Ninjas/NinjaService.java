@@ -17,4 +17,14 @@ public class NinjaService {
          return ninjaRepository.findAll();
     }
 
+    // Buscar ninja por ID
+    public NinjaModel listaNinjaId(Long id){
+        return ninjaRepository.findById(id).get();
+    }
+
+    // Criar um novo ninja
+    public NinjaModel criarNinja(NinjaModel ninjaModel){
+        return ninjaRepository.save(ninjaModel);
+    }
+
 }
