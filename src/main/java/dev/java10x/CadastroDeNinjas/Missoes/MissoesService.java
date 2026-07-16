@@ -17,4 +17,12 @@ public class MissoesService {
         return missoesRepository.findAll();
     }
 
+    public MissoesModel listarMissaoPorId(Long id) {
+        return missoesRepository.findById(id).get();
+    }
+
+    public MissoesModel criarMissao(MissoesModel missao){
+        return missoesRepository.save(missao);
+    }
+
 }

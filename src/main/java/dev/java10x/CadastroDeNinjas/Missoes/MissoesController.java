@@ -18,10 +18,15 @@ public class MissoesController {
         return missoesService.listarTodasMissoes();
     }
 
+    @GetMapping("/listarMissaoPorId")
+    public MissoesModel listarMissaoPorId(@PathVariable Long id){
+        return missoesService.listarMissaoPorId(id);
+    }
+
     // Adicionar novas missoes
-    @PostMapping("/criar")
-    public String criarMissoes(){
-        return "Missao criada com sucesso!";
+    @PostMapping("/criarMissao")
+    public MissoesModel criarMissoes(@RequestBody MissoesModel missao){
+        return missoesService.criarMissao(missao);
     }
 
     // Buscar missoes
