@@ -23,6 +23,10 @@ public class NinjaController {
 
     @GetMapping("/heath")
     @Operation(summary = "Check health status", description = "Essa rota verifica se a API está funcionando")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "API OK"),
+            @ApiResponse(responseCode = "500", description = "API fora do AR")
+    })
     public ResponseEntity<String> apiFuncionando(){
         return ResponseEntity.ok("API funcionando!");
     }
@@ -40,6 +44,10 @@ public class NinjaController {
     }
 
     @GetMapping("/listarNinjas")
+    @Operation(summary = "Lista todos os ninjas cadastrados no banco")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Retorna lista de ninjas")
+    })
     public ResponseEntity<List<NinjaDTO>> mostrarTodosOsNinjas(){
         List<NinjaDTO> ninjas = ninjaService.listarNinjas();
         return ResponseEntity.ok(ninjas);
@@ -85,7 +93,14 @@ public class NinjaController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<?> deletableNinjaPorID(@PathVariable Long id){
+    @Operation(summary = "Deleta ninja do banco, com base no seu Id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Ninja deletado com sucesso."),
+            @ApiResponse(responseCode = "404", description = "Ninja não encontrado para ser deletado.")
+    })
+    public ResponseEntity<?> deletableNinjaPorID(
+            @Parameter(description = "Usuário manda Id na URL da requisição.")
+            @PathVariable Long id) {
         Optional<NinjaDTO> ninja = ninjaService.listaNinjaId(id);
         if (ninja.isPresent()){
             ninjaService.deletarNinjaPorId(id);
